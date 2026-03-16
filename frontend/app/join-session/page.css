@@ -1,0 +1,39 @@
+.join-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin-top:120px;
+}
+
+.join-title{
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.join-form{
+  display:flex;
+  gap:12px;
+}
+
+.join-input{
+  padding:10px 14px;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
+  width:220px;
+}
+
+.join-button{
+  padding:10px 16px;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  background:#5865F2;
+  color:white;
+}
+
+.join-button:hover{
+  opacity:0.9;
+}
