@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import './piano.css'
 
 // ─── Définition du clavier (2 octaves : C4 → B5) ─────────────────────────────
@@ -85,8 +85,23 @@ export default function Piano({ onNoteOn, onNoteOff, activeNotes = new Set() }) 
 
   // ── Raccourcis clavier ───────────────────────────────────────────────────────
 
-  // Les event listeners clavier sont gérés au niveau de la page (voir useEffect dans piano)
-  // On expose une ref pour que le parent puisse appeler pressKey / releaseKey si besoin
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.repeat) return
+      const note = KEY_MAP[e.key.toLowerCase()]
+      if (note) press(note)
+    }
+    function handleKeyUp(e) {
+      const note = KEY_MAP[e.key.toLowerCase()]
+      if (note) release(note)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [onNoteOn, onNoteOff])
 
   // ── Rendu ────────────────────────────────────────────────────────────────────
 
