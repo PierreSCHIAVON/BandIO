@@ -40,10 +40,10 @@ function PlayPageInner() {
   const synthRef  = useRef(null)
 
   // ── Auth ────────────────────────────────────────────────────────────────────
-/*   useEffect(() => {
+  useEffect(() => {
     if (!isAuthenticated()) { router.push('/login'); return }
     setUser(getUser())
-  }, [router]) */
+  }, [router])
 
   // ── WebSocket ───────────────────────────────────────────────────────────────
   useEffect(() => {
