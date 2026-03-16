@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { setToken } from '@/lib/auth';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +17,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:3001/api/auth/login', {
+      const res = await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -26,7 +26,7 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || 'Erreur de connexion');
+        setError(data.message || 'Erreur lors de l\'inscription');
         return;
       }
 
@@ -43,15 +43,25 @@ export default function LoginPage() {
     <div style={styles.container}>
       <div style={styles.card}>
         <h1 style={styles.title}>BandIO</h1>
-        <p style={styles.subtitle}>Connexion</p>
+        <p style={styles.subtitle}>Créer un compte</p>
 
         <form onSubmit={handleSubmit} style={styles.form}>
+          <label style={styles.label}>Nom</label>
+          <input
+            type="text"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            placeholder="Jean Dupont"
+            required
+            style={styles.input}
+          />
+
           <label style={styles.label}>Email</label>
           <input
             type="email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            placeholder="admin@bandio.com"
+            placeholder="jean@bandio.com"
             required
             style={styles.input}
           />
@@ -69,14 +79,14 @@ export default function LoginPage() {
           {error && <p style={styles.error}>{error}</p>}
 
           <button type="submit" disabled={loading} style={styles.button}>
-            {loading ? 'Connexion...' : 'Se connecter'}
+            {loading ? 'Inscription...' : 'S\'inscrire'}
           </button>
         </form>
 
         <p style={styles.link}>
-          Pas encore de compte ?{' '}
-          <Link href="/register" style={styles.linkAnchor}>
-            S&apos;inscrire
+          Déjà un compte ?{' '}
+          <Link href="/login" style={styles.linkAnchor}>
+            Se connecter
           </Link>
         </p>
       </div>
