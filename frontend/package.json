@@ -1,0 +1,21 @@
+{
+  "name": "band-io-frontend",
+  "version": "1.0.0",
+  "description": "BandIO - Frontend (Next.js)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": ["music", "websocket", "real-time"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "socket.io-client": "^4.8.3",
+    "tone": "^15.1.22"
+  }
+}
