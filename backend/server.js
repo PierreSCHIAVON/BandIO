@@ -18,6 +18,16 @@ app.get('/api/me', authMiddleware, (req, res) => {
   res.json({ user: req.user });
 });
 
+// Liste des sessions actives
+app.get('/api/sessions', authMiddleware, (req, res) => {
+  const list = Object.entries(sessions).map(([sessionId, players]) => ({
+    sessionId,
+    participantCount: players.size,
+    participants: [...players.values()].map(({ userName, instrument }) => ({ userName, instrument })),
+  }));
+  res.json(list);
+});
+
 const httpServer = http.createServer(app);
 
 const io = new Server(httpServer, {
