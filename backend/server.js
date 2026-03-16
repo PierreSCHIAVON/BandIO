@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/authMiddleware');
 
@@ -16,7 +18,36 @@ app.get('/api/me', authMiddleware, (req, res) => {
   res.json({ user: req.user });
 });
 
-const PORT = process.env.PORT || 3001;
+const httpServer = http.createServer(app);
+
+const io = new Server(httpServer, {
+  cors: { origin: '*' },
+});
+
+// sessions[sessionId] = Map<socketId, { userId, userName, instrument }>
+const sessions = {};
+
+io.on('connection', (socket) => {
+  console.log(`[WS] connecté : ${socket.id}`);
+
+  // Rejoindre une session avec un instrument
+  // { sessionId, userId, userName, instrument }
+  socket.on('join_session', ({ sessionId, userId, userName, instrument }) => {
+    socket.join(sessionId);
+
+    if (!sessions[sessionId]) sessions[sessionId] = new Map();
+    sessions[sessionId].set(socket.id, { userId, userName, instrument });
+
+    const participants = [...sessions[sessionId].values()];
+
+    // Confirmer à l'utilisateur qu'il a rejoint
+    socket.emit('session_joined', { sessionId, participants });
+
+    // Informer les autres participants
+    socket.to(sessionId).emit('participant_joined', { userId, userName, instrument });
+
+    console.log(`[WS] ${userName} a rejoint la session ${sessionId} (${instrument})`);
+  });
 
   // Jouer une note → redistribuer aux autres participants
   // { sessionId, instrument, note, velocity, type } type = 'noteOn' | 'noteOff'
