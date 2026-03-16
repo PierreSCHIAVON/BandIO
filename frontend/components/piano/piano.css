@@ -1,0 +1,116 @@
+/* ─── Conteneur du piano ─────────────────────────────────── */
+
+.piano-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  user-select: none;
+}
+
+.piano-label {
+  font-size: 12px;
+  color: #555;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ─── Clavier ────────────────────────────────────────────── */
+
+.piano-keyboard {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  border-radius: 0 0 8px 8px;
+  overflow: visible;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Touches blanches ───────────────────────────────────── */
+
+.key-white {
+  position: relative;
+  width: 52px;
+  height: 160px;
+  background: #f5f5f0;
+  border: 1px solid #bbb;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  z-index: 1;
+  transition: background 0.05s;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px !important;
+}
+
+.key-white:first-child {
+  border-radius: 0 0 6px 0;
+}
+
+.key-white:last-child {
+  border-radius: 0 0 6px 6px;
+}
+
+.key-white.pressed {
+  background: #6c63ff;
+  border-color: #5a52d5;
+}
+
+.key-white.active {
+  background: #b39ddb;
+  border-color: #9575cd;
+}
+
+.key-white .key-note {
+  font-size: 10px;
+  color: #999;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.key-white.pressed .key-note,
+.key-white.active .key-note {
+  color: #fff;
+}
+
+/* ─── Touches noires ─────────────────────────────────────── */
+
+.key-black {
+  position: absolute;
+  width: 32px;
+  height: 100px;
+  background: #111;
+  border-radius: 0 0 5px 5px;
+  z-index: 2;
+  top: 0;
+  transition: background 0.05s;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.key-black.pressed {
+  background: #6c63ff;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.key-black.active {
+  background: #7e57c2;
+}
+
+/* ─── Octave divider ─────────────────────────────────────── */
+
+.octave-divider {
+  width: 2px;
+  height: 160px;
+  background: #333;
+  z-index: 3;
+  flex-shrink: 0;
+}
+
+/* ─── Hint clavier ───────────────────────────────────────── */
+
+.piano-hint {
+  font-size: 11px;
+  color: #444;
+  text-align: center;
+}
