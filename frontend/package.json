@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "keywords": ["music", "websocket", "real-time"],
+  "keywords": [
+    "music",
+    "websocket",
+    "real-time"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
