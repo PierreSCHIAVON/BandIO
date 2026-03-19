@@ -1,3 +1,5 @@
+import './globals.css';
+
 export const metadata = {
   title: 'BandIO',
   description: 'BandIO - Collaboration musicale en temps réel',
