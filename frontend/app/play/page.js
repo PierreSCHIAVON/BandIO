@@ -8,6 +8,7 @@ import Image from 'next/image'
 
 import { isAuthenticated, getUser } from '@/lib/auth'
 import Piano from '@/components/piano/piano'
+import Guitar from '@/components/guitar/guitar'
 import Mixer from '@/components/mixer/mixer'
 import Toolbar from '@/components/toolbar/toolbar'
 import logo from '../../public/bandio.png'
@@ -35,6 +36,7 @@ function PlayPageInner() {
   const [playingIds,    setPlayingIds]    = useState(new Set()) // userId des joueurs en train de jouer
   const [volume,        setVolume]        = useState(80)
   const [connected,     setConnected]     = useState(false)
+  const [synthReady,    setSynthReady]    = useState(false)
 
   const socketRef = useRef(null)
   const synthRef  = useRef(null)
@@ -103,6 +105,7 @@ function PlayPageInner() {
 
     Tone.getContext().resume()
     let synth
+    const effects = []
 
     if (myInstrument === 'piano') {
       synth = new Tone.PolySynth(Tone.Synth, {
@@ -117,16 +120,29 @@ function PlayPageInner() {
       }).toDestination()
 
     } else if (myInstrument === 'guitare') {
-      synth = new Tone.PluckSynth().toDestination()
+      setSynthReady(false)
+      synth = new Tone.Sampler({
+        urls: {
+          E2: 'E2.mp3', A2: 'A2.mp3', D3: 'D3.mp3',
+          G3: 'G3.mp3', B3: 'B3.mp3', E4: 'E4.mp3',
+          A4: 'A4.mp3', D5: 'D5.mp3',
+        },
+        baseUrl: '/samples/guitar/',
+        onload: () => setSynthReady(true),
+      }).toDestination()
 
     } else if (myInstrument === 'batterie') {
       synth = new Tone.MembraneSynth().toDestination()
     }
 
     synthRef.current = synth
+    if (myInstrument !== 'guitare') setSynthReady(true)
     setPhase('playing')
 
-    return () => synth?.dispose()
+    return () => {
+      synth?.dispose()
+      effects.forEach(e => e.dispose())
+    }
   }, [myInstrument])
 
   // ── Volume ──────────────────────────────────────────────────────────────────
@@ -146,9 +162,10 @@ function PlayPageInner() {
   }
 
   function handleNoteOn(note) {
-    // PluckSynth et MembraneSynth : son autonome (pas de sustain)
+    if (!synthReady) return
+    Tone.start()
     if (myInstrument === 'guitare') {
-      synthRef.current?.triggerAttack(note)
+      synthRef.current?.triggerAttackRelease(note, 2)
     } else if (myInstrument === 'batterie') {
       synthRef.current?.triggerAttackRelease('C1', '8n')
     } else {
@@ -256,11 +273,22 @@ function PlayPageInner() {
 
       <div className="main">
         <div className="instrument-zone">
-          <Piano
-            onNoteOn={handleNoteOn}
-            onNoteOff={handleNoteOff}
-            activeNotes={activeNotes}
-          />
+          {!synthReady && (
+            <p style={{ color: '#aaa', fontSize: 14, marginBottom: 8 }}>Chargement des samples...</p>
+          )}
+          {myInstrument === 'guitare' ? (
+            <Guitar
+              onNoteOn={handleNoteOn}
+              onNoteOff={handleNoteOff}
+              activeNotes={activeNotes}
+            />
+          ) : (
+            <Piano
+              onNoteOn={handleNoteOn}
+              onNoteOff={handleNoteOff}
+              activeNotes={activeNotes}
+            />
+          )}
         </div>
 
         <Mixer
