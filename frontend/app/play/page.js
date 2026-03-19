@@ -38,14 +38,25 @@ function PlayPageInner() {
   const [connected,     setConnected]     = useState(false)
   const [synthReady,    setSynthReady]    = useState(false)
 
-  const socketRef = useRef(null)
-  const synthRef  = useRef(null)
+  const socketRef      = useRef(null)
+  const synthRef       = useRef(null)
+  const remoteSynthRef = useRef(null)
 
   // ── Auth ────────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!isAuthenticated()) { router.push('/login'); return }
     setUser(getUser())
   }, [router])
+
+  // ── Synth dédié aux notes des autres joueurs ─────────────────────────────
+  useEffect(() => {
+    const remote = new Tone.PolySynth(Tone.Synth, {
+      oscillator: { type: 'triangle' },
+      envelope: { attack: 0.02, decay: 0.3, sustain: 0.4, release: 1.2 },
+    }).toDestination()
+    remoteSynthRef.current = remote
+    return () => remote.dispose()
+  }, [])
 
   // ── WebSocket ───────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -86,14 +97,14 @@ function PlayPageInner() {
       if (userId === user.id) return
       setActiveNotes(prev => new Set([...prev, note]))
       setPlayingIds(prev => new Set([...prev, userId]))
-      synthRef.current?.triggerAttack?.(note)
+      remoteSynthRef.current?.triggerAttack(note)
     })
 
     socket.on('note_off', ({ userId, note }) => {
       if (userId === user.id) return
       setActiveNotes(prev => { const s = new Set(prev); s.delete(note); return s })
       setPlayingIds(prev => { const s = new Set(prev); s.delete(userId); return s })
-      synthRef.current?.triggerRelease?.(note)
+      remoteSynthRef.current?.triggerRelease(note)
     })
 
     return () => socket.disconnect()
@@ -157,6 +168,7 @@ function PlayPageInner() {
     const alreadyTaken = players.some(p => p.instrument === instrument && p.id !== user?.id)
     if (alreadyTaken) return
 
+    Tone.start() // Déverrouille l'AudioContext depuis un geste utilisateur
     socketRef.current?.emit('choose_instrument', { instrument })
     setMyInstrument(instrument)
   }
