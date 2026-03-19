@@ -31,7 +31,7 @@ export default function RegisterPage() {
       }
 
       setToken(data.token);
-      router.push('/');
+      router.push('/homepage');
     } catch {
       setError('Impossible de contacter le serveur');
     } finally {
