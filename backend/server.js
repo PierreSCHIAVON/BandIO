@@ -12,7 +12,9 @@ const io = new Server(httpServer, {
   cors: { origin: "*" },
 });
 
-app.use(cors());
+app.use(cors(
+  { origin: "*" }
+));
 app.use(express.json());
 
 // ─── Données partagées (In-Memory) ───────────────────────────────────────────
