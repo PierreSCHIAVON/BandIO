@@ -99,8 +99,8 @@ export default function HomePage() {
         return;
       }
 
-      await loadSessions();
-      setFeedback('Session créée sur le serveur.');
+      const { sessionId } = await res.json();
+      router.push(`/play?room=${sessionId}`);
     } catch {
       setFeedback('Erreur de connexion au serveur de sessions.');
     } finally {
@@ -109,12 +109,7 @@ export default function HomePage() {
   }
 
   function handleJoinSession() {
-    if (sessions.length === 0) {
-      setFeedback('Aucune session active pour le moment.');
-      return;
-    }
-
-    setFeedback(`Demande envoyée pour rejoindre ${sessions[0].title}.`);
+    router.push('/join-session');
   }
 
   if (!user) return null;
@@ -160,13 +155,17 @@ export default function HomePage() {
               <p style={styles.empty}>Aucune session disponible.</p>
             )}
             {activeSessions.map((session) => (
-              <div key={session.id} style={styles.sessionCard}>
+              <div
+                key={session.id}
+                style={{ ...styles.sessionCard, cursor: 'pointer' }}
+                onClick={() => router.push(`/play?room=${session.id}`)}
+              >
                 <div style={styles.sessionHeader}>
                   <p style={styles.sessionName}>{session.title}</p>
                   <span style={styles.sessionStatus}>{session.status}</span>
                 </div>
                 <p style={styles.sessionMeta}>
-                  par {session.host} • {session.listeners} auditeur·rice·s
+                  par {session.host} • {session.listeners} participant·e·s
                 </p>
               </div>
             ))}
