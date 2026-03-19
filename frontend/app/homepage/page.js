@@ -12,7 +12,6 @@ export default function HomePage() {
   const [sessions, setSessions] = useState([]);
   const [feedback, setFeedback] = useState('');
   const [loadingSessions, setLoadingSessions] = useState(false);
-  const [creatingSession, setCreatingSession] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -70,42 +69,8 @@ export default function HomePage() {
     router.push('/login');
   }
 
-  async function handleCreateSession() {
-    const token = getToken();
-    if (!token) {
-      setFeedback('Vous devez être connecté·e pour créer une session.');
-      return;
-    }
-
-    setCreatingSession(true);
-    try {
-      const res = await fetch(`${API_BASE}/api/sessions`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: `Nouvelle session ${new Date().toLocaleTimeString('fr-FR', {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}`,
-        }),
-      });
-
-      if (!res.ok) {
-        const err = await res.text();
-        setFeedback(err || 'Impossible de créer la session.');
-        return;
-      }
-
-      const { sessionId } = await res.json();
-      router.push(`/play?room=${sessionId}`);
-    } catch {
-      setFeedback('Erreur de connexion au serveur de sessions.');
-    } finally {
-      setCreatingSession(false);
-    }
+  function handleCreateSession() {
+    router.push('/create-session');
   }
 
   function handleJoinSession() {
@@ -133,14 +98,12 @@ export default function HomePage() {
         <div style={styles.actionRow}>
           <button
             onClick={handleCreateSession}
-            disabled={creatingSession}
             style={{
               ...styles.primaryButton,
               marginRight: '10px',
-              opacity: creatingSession ? 0.6 : 1,
             }}
           >
-            {creatingSession ? 'Création en cours...' : 'Créer une session'}
+            Créer une session
           </button>
           <button onClick={handleJoinSession} style={styles.secondaryButton}>
             Rejoindre une session

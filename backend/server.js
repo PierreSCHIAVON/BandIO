@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").resolve(__dirname, "../.env") });
 const express = require("express");
 const cors = require("cors");
 const { createServer } = require("http");
@@ -45,13 +45,15 @@ app.get("/api/sessions", authMiddleware, (req, res) => {
 
 // Créer une nouvelle session
 app.post("/api/sessions", authMiddleware, (req, res) => {
-  const { title } = req.body || {};
+  const { title, nb_user, visibility } = req.body || {};
   const roomId = `session-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
   const sessionTitle = (title || "").trim() || `Session ${rooms.size + 1}`;
 
   rooms.set(roomId, {
     title: sessionTitle,
     host: req.user?.username || "Anonyme",
+    nb_user: nb_user || null,
+    visibility: visibility === "private" ? "private" : "public",
     players: new Map(),
   });
 
@@ -59,6 +61,8 @@ app.post("/api/sessions", authMiddleware, (req, res) => {
     sessionId: roomId,
     title: sessionTitle,
     host: req.user?.username || "Anonyme",
+    nb_user: nb_user || null,
+    visibility: visibility === "private" ? "private" : "public",
   });
 });
 

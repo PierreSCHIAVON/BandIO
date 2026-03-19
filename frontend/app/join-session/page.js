@@ -14,6 +14,7 @@ export default function JoinSessionPage() {
 
   const [user, setUser] = useState(null);
   const [roomId, setRoomId] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -26,10 +27,14 @@ export default function JoinSessionPage() {
 
   function handleJoin(e) {
     e.preventDefault();
+    setError('');
 
-    if (!roomId.trim()) return;
+    if (!roomId.trim()) {
+      setError('Veuillez entrer un code de session.');
+      return;
+    }
 
-    router.push(`/play?room=${roomId}`);
+    router.push(`/play?room=${roomId.trim()}`);
   }
 
   if (!user) return null;
@@ -47,6 +52,12 @@ export default function JoinSessionPage() {
           </span>
         </div>
       </div>
+
+      {error && (
+        <div className="error-banner">
+          {error}
+        </div>
+      )}
 
       <div className="join-container">
 

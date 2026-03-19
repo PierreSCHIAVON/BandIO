@@ -1,0 +1,217 @@
+/* ─── Layout global ─────────────────────────────────────── */
+
+.page {
+  background-color: #0f0f0f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.cs-header {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.cs-logo {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+}
+
+.cs-header-title {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #6c63ff;
+  flex: 1;
+}
+
+.cs-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.cs-user {
+  color: #aaa;
+  font-size: 13px;
+}
+
+/* ─── Bandeau d'erreur ───────────────────────────────────── */
+
+.cs-error-banner {
+  background-color: #3b1a1a;
+  border-bottom: 1px solid #7a2a2a;
+  color: #ff7b7b;
+  font-size: 13px;
+  padding: 10px 24px;
+  text-align: center;
+}
+
+/* ─── Corps ──────────────────────────────────────────────── */
+
+.cs-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 40px 24px;
+}
+
+.cs-card {
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 36px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+}
+
+.cs-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ─── Formulaire ─────────────────────────────────────────── */
+
+.cs-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cs-input {
+  padding: 11px 14px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #0f0f0f;
+  color: #fff;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.cs-input:focus {
+  border-color: #6c63ff;
+}
+
+.cs-input::placeholder {
+  color: #444;
+}
+
+/* ─── Visibilité ─────────────────────────────────────────── */
+
+.cs-visibility {
+  display: flex;
+  gap: 10px;
+}
+
+.cs-vis-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #0f0f0f;
+  color: #aaa;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+}
+
+.cs-vis-btn:hover {
+  border-color: #6c63ff;
+  color: #fff;
+}
+
+.cs-vis-active {
+  background-color: #6c63ff;
+  border-color: #6c63ff;
+  color: #fff;
+}
+
+/* ─── Boutons d'action ───────────────────────────────────── */
+
+.cs-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.cs-btn-cancel {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #c0392b;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: opacity 0.15s;
+}
+
+.cs-btn-cancel:hover {
+  opacity: 0.85;
+}
+
+.cs-btn-create {
+  flex: 2;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #27ae60;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: opacity 0.15s;
+}
+
+.cs-btn-create:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.cs-btn-create:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

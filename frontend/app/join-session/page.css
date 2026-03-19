@@ -47,6 +47,17 @@
   font-size: 13px;
 }
 
+/* ─── Bandeau d'erreur ───────────────────────────────────── */
+
+.error-banner {
+  background-color: #3b1a1a;
+  border-bottom: 1px solid #7a2a2a;
+  color: #ff7b7b;
+  font-size: 13px;
+  padding: 10px 24px;
+  text-align: center;
+}
+
 /* ─── Rejoindre ──────────────────────────────────────────── */
 
 .join-container {
