@@ -1,0 +1,233 @@
+* {
+  padding: 0 !important;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ─── Layout global ─────────────────────────────────────── */
+
+.page {
+  background-color: #0f0f0f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.title {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 24px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 40px !important;
+  width: 40px !important;
+  border-radius: 8px;
+}
+
+.title-text {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #6c63ff;
+}
+
+.title-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-user {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.connection-dot.ok {
+  background: #4caf50;
+  box-shadow: 0 0 6px #4caf50;
+}
+
+.connection-dot.error {
+  background: #f44336;
+}
+
+/* ─── Zone principale (instrument + mixer) ───────────────── */
+
+.main {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  overflow: hidden;
+}
+
+.instrument-zone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #141414;
+  overflow: auto;
+  padding: 24px;
+}
+
+/* ─── Lobby ──────────────────────────────────────────────── */
+
+.lobby {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 40px !important;
+}
+
+.lobby-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.lobby-title code {
+  background: #2a2a2a;
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #6c63ff;
+}
+
+.lobby-subtitle {
+  color: #888;
+  font-size: 14px;
+  margin-top: -20px;
+}
+
+.instrument-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.instrument-card {
+  background: #1a1a1a;
+  border: 2px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 28px 16px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s, background 0.2s;
+}
+
+.instrument-card:hover:not(:disabled) {
+  border-color: #6c63ff;
+  background: #1e1b3a;
+  transform: translateY(-3px);
+}
+
+.instrument-card:disabled,
+.instrument-card.taken {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.instrument-icon {
+  font-size: 40px;
+}
+
+.instrument-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+}
+
+.instrument-taken-by {
+  font-size: 11px;
+  color: #888;
+  margin-top: -4px;
+}
+
+.lobby-players {
+  width: 100%;
+  max-width: 700px;
+}
+
+.lobby-players h3 {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.lobby-players ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lobby-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 10px 16px !important;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.player-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+  box-shadow: 0 0 6px #4caf50;
+  flex-shrink: 0;
+}
+
+.player-instrument-badge {
+  margin-left: auto;
+  background: #2a2a2a;
+  border-radius: 6px;
+  padding: 2px 10px !important;
+  font-size: 12px;
+  color: #6c63ff;
+}
+
+.connection-status {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.connection-status.ok {
+  color: #4caf50;
+}
+
+.connection-status.error {
+  color: #f44336;
+}

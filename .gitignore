@@ -1,2 +1,5 @@
 .claude/
 .idea/
+.env
+.env.local
+.env.*.local

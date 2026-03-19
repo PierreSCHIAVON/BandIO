@@ -1,0 +1,111 @@
+/* ─── Layout global ─────────────────────────────────────── */
+
+.page {
+  background-color: #0f0f0f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.title {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+}
+
+.title-text {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #6c63ff;
+}
+
+.title-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-user {
+  color: #aaa;
+  font-size: 13px;
+}
+
+/* ─── Bandeau d'erreur ───────────────────────────────────── */
+
+.error-banner {
+  background-color: #3b1a1a;
+  border-bottom: 1px solid #7a2a2a;
+  color: #ff7b7b;
+  font-size: 13px;
+  padding: 10px 24px;
+  text-align: center;
+}
+
+/* ─── Rejoindre ──────────────────────────────────────────── */
+
+.join-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 24px;
+}
+
+.join-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.join-form {
+  display: flex;
+  gap: 12px;
+}
+
+.join-input {
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #1a1a1a;
+  color: #fff;
+  width: 240px;
+  outline: none;
+}
+
+.join-input::placeholder {
+  color: #555;
+}
+
+.join-button {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #6c63ff;
+  color: #fff;
+}
+
+.join-button:hover {
+  opacity: 0.9;
+}
