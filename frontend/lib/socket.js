@@ -4,7 +4,7 @@ let socket;
 
 export function getSocket() {
   if (!socket) {
-    socket = io("http://localhost:3001", {
+    socket = io("https://band-io-back.vercel.app/", {
       transports: ["websocket"],
     });
   }
