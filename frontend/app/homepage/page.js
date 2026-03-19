@@ -19,6 +19,7 @@ export default function HomePage() {
       router.push('/login');
       return;
     }
+
     setUser(getUser());
   }, [router]);
 
@@ -112,6 +113,7 @@ export default function HomePage() {
       setFeedback('Aucune session active pour le moment.');
       return;
     }
+
     setFeedback(`Demande envoyée pour rejoindre ${sessions[0].title}.`);
   }
 
